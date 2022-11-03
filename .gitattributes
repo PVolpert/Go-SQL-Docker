@@ -1,1 +1,1 @@
-secrets/** filter=git-crypt diff=git-crypt
+secrets/postgres/** filter=git-crypt diff=git-crypt
