@@ -4,7 +4,6 @@ services:
 
   db:
     image: postgres
-    restart: always
     environment:
       POSTGRES_PASSWORD_FILE: /run/secrets/db-pswd
       POSTGRES_USER_FILE: /run/secrets/db-user
@@ -18,9 +17,11 @@ services:
 
   adminer:
     image: adminer
-    restart: always
     ports:
       - 8080:8080
+
+  worker:
+    build: ./Images/Go
 
 secrets:
   db-user:
