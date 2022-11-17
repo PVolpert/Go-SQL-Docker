@@ -1,1 +1,19 @@
-FROM golang:alpine
+# Build the Image
+FROM golang:1.19-alpine
+
+WORKDIR /app
+
+COPY ./go.mod ./
+#COPY ./go.sum ./
+
+RUN go mod tidy
+
+COPY *.go ./
+
+COPY ./printstuff ./printstuff
+
+
+# Test the Image
+
+CMD [ "go","test", "elarodas/worker/printstuff" ]
+
