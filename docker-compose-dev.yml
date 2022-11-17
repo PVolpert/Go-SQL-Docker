@@ -1,0 +1,35 @@
+version: '3.1'
+
+services:
+
+  db:
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD_FILE: /run/secrets/db-pswd
+      POSTGRES_USER_FILE: /run/secrets/db-user
+    volumes:
+      - ./datadir:/var/lib/postgresql/data
+      - ./docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
+    secrets:
+      - db-user
+      - db-pswd
+      - db-script-env
+
+  adminer:
+    image: adminer
+    ports:
+      - 8080:8080
+  
+  worker:
+    build: 
+      context: ./Images/Go/
+      dockerfile: Dockerfile.dev
+      #TODO Find a good Way to mirror volumes
+
+secrets:
+  db-user:
+    file: ./secrets/postgres/POSTGRES_USER_FILE
+  db-pswd:
+    file: ./secrets/postgres/POSTGRES_PASSWORD_FILE
+  db-script-env: 
+    file: ./secrets/postgres/script_env.sh
