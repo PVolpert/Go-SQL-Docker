@@ -8,8 +8,8 @@ services:
       POSTGRES_PASSWORD_FILE: /run/secrets/db-pswd
       POSTGRES_USER_FILE: /run/secrets/db-user
     volumes:
-      - ./datadir:/var/lib/postgresql/data
-      - ./docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
+      - ./devdatadir:/var/lib/postgresql/data
+      - ./Images/Postgres/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
     secrets:
       - db-user
       - db-pswd

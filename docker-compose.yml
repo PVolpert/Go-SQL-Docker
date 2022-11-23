@@ -9,7 +9,7 @@ services:
       POSTGRES_USER_FILE: /run/secrets/db-user
     volumes:
       - ./datadir:/var/lib/postgresql/data
-      - ./docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
+      - ./Images/Postgres/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
     secrets:
       - db-user
       - db-pswd
@@ -21,7 +21,7 @@ services:
       - 8080:8080
 
   worker:
-    build: ./Images/Go
+    build: ./Images/Go-Worker
 
 secrets:
   db-user:
