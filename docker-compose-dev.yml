@@ -26,6 +26,14 @@ services:
       dockerfile: Dockerfile.dev
       #TODO Find a good Way to mirror volumes
 
+  redis-server:
+    image: redis:6-alpine
+    command: redis-server /run/secrets/redis.conf
+    secrets:
+      - redis.conf
+      - redis-acl
+
+
 secrets:
   db-user:
     file: ./secrets/postgres/POSTGRES_USER_FILE
@@ -33,3 +41,7 @@ secrets:
     file: ./secrets/postgres/POSTGRES_PASSWORD_FILE
   db-script-env: 
     file: ./secrets/postgres/script_env.sh
+  redis.conf:
+    file: ./secrets/redis/REDIS_CONF_FILE
+  redis-acl:
+    file: ./secrets/redis/REDIS_ACL_FILE
