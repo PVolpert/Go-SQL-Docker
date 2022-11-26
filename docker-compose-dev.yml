@@ -9,7 +9,8 @@ services:
       POSTGRES_USER_FILE: /run/secrets/db-user
     volumes:
       - ./devdatadir:/var/lib/postgresql/data
-      - ./Images/Postgres/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
+      #TODO: Load Folder & Content via config
+      - ./configs/Postgres/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
     secrets:
       - db-user
       - db-pswd
