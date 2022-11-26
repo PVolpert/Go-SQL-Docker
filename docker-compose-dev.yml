@@ -28,11 +28,20 @@ services:
       #TODO Find a good Way to mirror volumes
 
   redis-server:
-    image: redis:6-alpine
-    command: redis-server /run/secrets/redis.conf
+    image: redis:6
+    command: 
+      - /bin/bash
+      - -c
+      - /app/redis-make-acl.sh && redis-server /app/redis.conf
     secrets:
-      - redis.conf
-      - redis-acl
+      - redis-admin.env
+      - redis-worker.env
+      - redis-api.env
+    configs:
+      - source: redis-conf
+        target: /app/redis.conf
+      - source: redis-make-acl
+        target: /app/redis-make-acl.sh
 
 
 secrets:
@@ -42,7 +51,17 @@ secrets:
     file: ./secrets/postgres/POSTGRES_PASSWORD_FILE
   db-script-env: 
     file: ./secrets/postgres/script_env.sh
-  redis.conf:
-    file: ./secrets/redis/REDIS_CONF_FILE
-  redis-acl:
-    file: ./secrets/redis/REDIS_ACL_FILE
+  # We need granular user secrets for the using applications
+  redis-admin.env:
+    file: ./secrets/redis/users/admin.env
+  redis-worker.env:
+    file: ./secrets/redis/users/worker.env
+  redis-api.env:
+    file: ./secrets/redis/users/api.env
+
+
+configs:
+  redis-conf:
+    file: ./configs/redis/REDIS_CONF_FILE
+  redis-make-acl:
+    file: ./configs/redis/makeACLFile.sh

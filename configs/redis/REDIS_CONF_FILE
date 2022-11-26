@@ -1,0 +1,4 @@
+protected-mode yes
+port 6379
+timeout 30
+aclfile /app/redis-acl
