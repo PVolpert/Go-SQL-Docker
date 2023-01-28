@@ -6,9 +6,9 @@ WORKDIR /app
 COPY ./go.mod ./
 #COPY ./go.sum ./
 
-RUN go mod tidy
-
 COPY *.go ./
+
+RUN go mod tidy
 
 COPY ./printstuff ./printstuff
 
