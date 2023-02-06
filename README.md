@@ -8,3 +8,5 @@ This is a test project to try out the following content
 - docker based golang API
 - (JS Frontend)
 - CI/CD 
+
+Status Update: I did a similar project [foodapp](https://github.com/ElarOdas/foodapp). This project will be used to see how transferable my foodapp code is. 
